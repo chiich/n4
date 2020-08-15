@@ -9,8 +9,8 @@ const fs = require('fs');
 const app = express();
 const port = process.env.PORT || 3000;
 const options = {
-  key: fs.readFileSync(path.join(__dirname, '/localhost-cert.pem')),
-  cert: fs.readFileSync(path.join(__dirname, '/localhost-privkey.pem')),
+  cert: fs.readFileSync(path.join(__dirname, '/localhost-cert.pem')),
+  key: fs.readFileSync(path.join(__dirname, '/localhost-privkey.pem')),
 };
 
 app.use(morgan('tiny'));
