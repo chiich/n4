@@ -13,11 +13,7 @@ const http2Options = {
   cert: fs.readFileSync(path.join(__dirname, '/localhost-cert.pem')),
   key: fs.readFileSync(path.join(__dirname, '/localhost-privkey.pem')),
 };
-const staticOptions = {
-  setHeaders: function(res, path, stat) {
-    res.set('x-timestamp', Date.now());
-  }
-}
+
 app.use(helmet());
 app.use(morgan('tiny'));
 app.use(express.static(path.join(__dirname, '/public/')));
@@ -39,7 +35,7 @@ const nav = [{
 }];
 const bookRouter = require('./src/routes/books.route')(nav);
 
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   next();
 });
 app.use('/books', bookRouter);
@@ -48,7 +44,7 @@ app.get('/processing', (req, res) => {
     'Content-Type': 'application/html',
     Location: '/books',
     'Content-length': 0,
-    'Expires': 0,
+    Expires: 0,
   });
   res.status(302).end();
 });
