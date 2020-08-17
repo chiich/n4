@@ -18,7 +18,9 @@ const staticOptions = {
     res.set('x-timestamp', Date.now());
   }
 }
-app.use(helmet());
+app.use(helmet({
+  noSniff: false
+}));
 app.use(morgan('tiny'));
 app.use(express.static(path.join(__dirname, '/public/')));
 app.use('/css', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/css/')));
