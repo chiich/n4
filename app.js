@@ -14,9 +14,7 @@ const http2Options = {
   key: fs.readFileSync(path.join(__dirname, '/localhost-privkey.pem')),
 };
 
-app.use(helmet({
-  noSniff: false
-}));
+app.use(helmet());
 app.use(morgan('tiny'));
 app.use(express.static(path.join(__dirname, '/public/')));
 app.use('/css', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/css/')));
@@ -63,6 +61,7 @@ app.post('/', (req, res) => {
     Location: '/processing',
     Refresh: '0; url=/processing',
     'Content-length': 0,
+    'Content-Type': 'text/html; charset=utf-8',
     'last-modified': Date.now(),
   });
   res.status(201).end();
